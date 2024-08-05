@@ -17,8 +17,8 @@ connectDB().then(() => {
     app.use(express.json());
     app.use(
         cors({
-            origin: "https://mern-filtering.onrender.com/api" || "http://localhost:5173",
-            credentials: true
+            origin: "https://mern-filtering.onrender.com/api",
+            // credentials: true
         })
     );
     app.use(
