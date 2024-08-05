@@ -6,6 +6,7 @@ import { Button } from '../button';
 import { IoClose } from "react-icons/io5";
 import axios from 'axios';
 import { toast } from 'sonner';
+const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
 const options = [
   'Sales', 'Finance', 'Marketing', 'IT', 'Management', 'UI Designing', 'Business Development'
@@ -74,7 +75,7 @@ const CreateUserPopup = ({ setCreateUserModal, mode, selectedUserData }) => {
         formDetails.append(key, formData[key]);
       }
 
-      const response = await axios.post('http://localhost:3000/api/user/createUser', formDetails);
+      const response = await axios.post(`${API_BASE_URL}/api/user/createUser`, formDetails);
       if(response){
         toast.success("User created successfully");
         setCreateUserModal(false);

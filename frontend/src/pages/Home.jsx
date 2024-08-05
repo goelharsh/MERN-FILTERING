@@ -8,6 +8,7 @@ import TeamCard from '@/components/ui/shared/TeamCard';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
+const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
 const Home = () => {
   const [search, setSearch] = useState("");
@@ -23,7 +24,7 @@ const Home = () => {
   
   const fetchUsers = async (page = 1, searchParam = "") => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/user/getHomeData`, {
+      const response = await axios.get(`${API_BASE_URL}/user/getHomeData`, {
         headers: {
           "Content-Type": 'application/json',
         },
@@ -46,7 +47,7 @@ const Home = () => {
 
   const fetchUserById = async (userId) => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/user/${userId}`);
+      const response = await axios.get(`${API_BASE_URL}/user/${userId}`);
       if (response) {
         setSelectedUserData(response.data.data);
         setCreateUserModal(true);
@@ -85,7 +86,7 @@ const Home = () => {
 
   const fetchTeamList = async () => {
     try {
-      const response = await axios.post(`http://localhost:3000/api/team/getAllTeams`, {
+      const response = await axios.post(`${API_BASE_URL}/team/getAllTeams`, {
         headers: {
           "Content-Type": 'application/json',
         }

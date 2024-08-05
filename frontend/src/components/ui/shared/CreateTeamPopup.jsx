@@ -4,7 +4,7 @@ import { Button } from '../button';
 import { IoClose } from "react-icons/io5";
 import axios from 'axios';
 import { toast } from 'sonner'; // Assuming you're using `sonner` for toasts
-
+const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 const CreateTeamPopup = ({ setCreateTeamModal }) => {
   const popupRef = useRef(null);
   const [teamName, setTeamName] = useState("");
@@ -26,7 +26,7 @@ const CreateTeamPopup = ({ setCreateTeamModal }) => {
   const handleCreateTeam = async () => {
     try {
      
-      const response = await axios.post(`http://localhost:3000/api/team/createTeam`, {
+      const response = await axios.post(`${API_BASE_URL}/team/createTeam`, {
         team_name: teamName,
         team_tagline: teamTagline,
         users: selectedUserArray.map(user => user._id)
@@ -55,7 +55,7 @@ const CreateTeamPopup = ({ setCreateTeamModal }) => {
   const handleTeamMemberSearch = async (page = 1) => {
     try {
     
-      const response = await axios.get(`http://localhost:3000/api/user/getHomeData`, {
+      const response = await axios.get(`${API_BASE_URL}/user/getHomeData`, {
         headers: {
           "Content-Type": 'application/json',
         },

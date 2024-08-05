@@ -5,6 +5,7 @@ import { Button } from '../button';
 import { IoClose } from "react-icons/io5";
 import axios from 'axios';
 import { toast } from 'sonner';
+const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
 const FilterUserPopup = ({ setFilterModal, setAllUsers }) => {
   const popupRef = useRef(null);
@@ -30,7 +31,7 @@ const FilterUserPopup = ({ setFilterModal, setAllUsers }) => {
   const handleFilterUsers = async () => {
     try {
       setLoading(true);
-      const response = await axios.post('http://localhost:3000/api/user/filteredUsers', {
+      const response = await axios.post(`${API_BASE_URL}/user/filteredUsers`, {
         domain,
         available: available === "option-one",
         gender: gender === "option-one" ? "Male" : "Female"
