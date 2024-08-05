@@ -5,42 +5,32 @@ const { connectDB } = require("./database/db");
 const userRoutes = require("./routes/user");
 const teamRoutes = require("./routes/team");
 const { cloudinaryConnect } = require("./utils/cloudinary");
-const fileUpload = require("express-fileupload");
+const fileUpload = require("express-fileupload")
 const cors = require("cors");
 
 dotenv.config();
-const PORT = process.env.PORT || 5000; // Default to port 5000 if not specified
+const PORT = process.env.PORT;
 
-connectDB().then(() => {
-    cloudinaryConnect();
+connectDB();
+cloudinaryConnect();
 
-    app.use(express.json());
-    app.use(
-        cors({
-            origin: "https://mern-filtering.vercel.app",
-            credentials: true // Uncomment if you need to support cookies or authentication
-        })
-    );
-    app.use(
-        fileUpload({
-            useTempFiles: true,
-            tempFileDir: "/tmp",
-        })
-    );
+app.use(express.json());
+app.use(
+    cors({
+        origin: "*",
+        credentials: true
+    })
+);
+app.use(
+    fileUpload({
+        useTempFiles:true,
+        tempFileDir:"/tmp",
+    })
+)
+// Use the router modules instead of individual route handlers
+app.use("/api/user", userRoutes);
+app.use("/api/team", teamRoutes);
 
-    // Default route
-    app.get('/', (req, res) => {
-        res.send('Backend server is running');
-    });
-
-    // API routes
-    app.use("/api/user", userRoutes);
-    app.use("/api/team", teamRoutes);
-
-    app.listen(PORT, () => {
-        console.log(`Server running at ${PORT}`);
-    });
-}).catch(error => {
-    console.error("Failed to connect to the database", error);
-    process.exit(1); // Exit the application with an error code
+app.listen(PORT, () => {
+    console.log(`Server running at ${PORT}`);
 });
