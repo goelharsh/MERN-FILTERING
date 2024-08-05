@@ -9,7 +9,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL;
-
+console.log(API_BASE_URL);
 const Home = () => {
   const [search, setSearch] = useState("");
   const [allUsers, setAllUsers] = useState([]);
