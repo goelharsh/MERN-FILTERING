@@ -17,7 +17,7 @@ connectDB().then(() => {
     app.use(express.json());
     app.use(
         cors({
-            origin: "http://localhost:5173",
+            origin: process.env.FRONTEND_URL || "http://localhost:5173",
             credentials: true
         })
     );
@@ -27,7 +27,13 @@ connectDB().then(() => {
             tempFileDir: "/tmp",
         })
     );
-    // Use the router modules instead of individual route handlers
+
+    // Default route
+    app.get('/', (req, res) => {
+        res.send('Backend server is running');
+    });
+
+    // API routes
     app.use("/api/user", userRoutes);
     app.use("/api/team", teamRoutes);
 
